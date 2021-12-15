@@ -1,0 +1,32 @@
+{
+    "scripts": {
+        "test": "mocha-webpack test/test/*.test.js",
+        "test-wp": "mocha-webpack test/test/ui/**/*.test.js --require test-setup",
+        "test-docker": "docker-compose up test",
+        "posttest": "docker-compose stop postgres",
+        "mocha": "mocha --reporter spec ./test/test/code/postGresFactoryTable.test.js",
+        "mocha-ff": "mocha --reporter spec ./test/test/api/literateHome.test.js"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.3.4",
+        "@vue/test-utils": "^1.0.0-beta.29",
+        "babel-loader": "^8.0.5",
+        "chai": "^4.2.0",
+        "css-loader": "^2.1.1",
+        "jsdom": "^14.0.0",
+        "jsdom-global": "^3.0.2",
+        "mocha": "^6.0.2",
+        "mocha-webpack": "^1.1.0",
+        "selenium-webdriver": "^4.0.0-alpha.1",
+        "vue": "^2.6.8",
+        "vue-loader": "^12.2.2",
+        "vue-template-compiler": "^2.6.8",
+        "webpack": "^3.12.0"
+    },
+    "dependencies": {
+        "axios": "^0.18.0",
+        "geckodriver": "^1.16.2",
+        "pg": "^7.8.2",
+        "pg-pool": "^2.0.6"
+    }
+}

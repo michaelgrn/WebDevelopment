@@ -1,0 +1,26 @@
+{
+  "name": "readability-server",
+  "version": "1.0.0",
+  "description": "API for readability functions",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "debug": "nodemon --inspect=5555 server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Patrick Cullings",
+  "devDependencies": {
+    "nodemon": "^1.17.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "jsdom": "^11.6.2",
+    "node-fetch": "^2.1.1",
+    "redis": "^2.8.0",
+    "response-time": "^2.3.2",
+    "sanitize-html": "^1.18.2"
+  },
+  "license": "UNLICENSED",
+  "repository": "https://github.com/BoiseState/literate-webapp.git"
+}

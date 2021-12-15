@@ -1,0 +1,48 @@
+version: '3'
+services:
+  webapp:
+    build: ./literate-app 
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    environment:
+      - DB_HOST=postgres
+    ports:
+     - "3000:3000"
+    networks:
+      - literate-net
+
+
+  server:
+    build: ./readability-server
+    restart: unless-stopped
+    networks:
+      - literate-net
+
+
+  redis_db:
+    image: redis:alpine
+    restart: unless-stopped
+    networks:
+      - literate-net
+
+
+  postgres:
+    restart: unless-stopped
+    #image: 'bitnami/postgresql:latest'
+    build: './database-creation'
+    volumes:
+     - /bitnami
+    ports:
+      - "5432:5432"
+    networks:
+      - literate-net
+    environment:
+      - "FILLA_DB_USER=my_user"
+      - "FILLA_DB_PASSWORD=password123"
+      - "FILLA_DB_DATABASE=my_database"
+      - "POSTGRES_PASSWORD=password123"
+
+networks:
+  literate-net:
+    driver: bridge

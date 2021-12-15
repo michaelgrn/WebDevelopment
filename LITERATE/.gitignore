@@ -1,0 +1,11 @@
+/literate-app/node_modules/
+/readability-server/node_modules/
+/log/output/*
+/.vscode/*
+
+*.DS_STORE
+dump.rdb
+
+node_modules/
+readability-server/node_modules
+literate-app/node_modules

@@ -1,0 +1,6 @@
+FROM node:latest
+
+RUN npm install chai --save
+RUN npm i pg-pool pg wait-port --save
+RUN npm i geckodriver --save 
+RUN npm i selenium-webdriver  --save

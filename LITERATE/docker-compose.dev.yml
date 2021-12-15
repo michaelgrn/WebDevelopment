@@ -1,0 +1,99 @@
+version: '3'
+services:
+  webapp:
+    build: ./literate-app 
+    command: nodemon -e vue,js,css start.js
+    depends_on:
+      - postgres
+    links:
+      - postgres
+    environment:
+      - DB_HOST=postgres
+    ports:
+     - "3000:3000"
+    networks:
+      - literate-net
+
+
+  server:
+    build: ./readability-server
+    command: nodemon -L --inspect=0.0.0.0:5555 server.js
+    networks:
+      - literate-net
+
+
+  redis_db:
+    image: redis:alpine
+    networks:
+      - literate-net
+
+
+  postgres:
+    restart: 'always'
+    #image: 'bitnami/postgresql:latest'
+    volumes:
+     - /bitnami
+    ports:
+      - "5432:5432"
+    networks:
+      - literate-net
+    environment:
+      - "FILLA_DB_USER=my_user"
+      - "FILLA_DB_PASSWORD=password123"
+      - "FILLA_DB_DATABASE=my_database"
+      - "POSTGRES_PASSWORD=password123"
+    build: './database-creation'
+
+
+  test: 
+    build: ./test
+    working_dir: /literate-app/test
+    volumes:
+      - .:/literate-app
+    command:
+      npm run mocha
+    networks:
+      - literate-net
+    depends_on:
+      - postgres
+    environment:
+      - DB_HOST=postgres
+
+  hub:
+    image: selenium/hub:3.14.0-gallium
+    ports:
+      - "4444:4444"
+    networks:
+      - literate-net
+
+  firefox:
+    image: selenium/node-firefox:3.14.0-gallium
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - hub
+    environment:
+      HUB_HOST: hub
+    networks:
+      - literate-net
+    
+  test-ff: 
+    build: ./test
+    working_dir: /literate-app/test 
+    command: npm run mocha-ff
+    volumes:
+      - .:/literate-app
+    networks:
+      - literate-net
+    depends_on: 
+      - postgres 
+      - firefox
+      - webapp
+      - server
+    environment:
+      HUB_HOST: hub
+
+
+networks:
+  literate-net:
+    driver: bridge
