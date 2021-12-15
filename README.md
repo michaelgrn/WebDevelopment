@@ -1,5 +1,7 @@
 # Web Development
 
+Contained in this repository are examples of web sites that I have worked on.
+
 ***LITERATE*** contains code for a research driven web app designed to retrieve materials suitable to children based on readability and word count. Further details for my contribution to this project can be found in folder.
 
 The following links are websites that I have developed on my own:
