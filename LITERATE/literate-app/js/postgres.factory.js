@@ -6,7 +6,7 @@
 	*
 	* 1. docker container ls
 	* 2. docker exec -it xxxxxxxxxx bash (where xxxxxxxxxx is the pid of bitnami)
-		* 3. psql -h localhost -p 5432 -U postgres -W
+	* 3. psql -h localhost -p 5432 -U postgres -W
 	*
 	* The schema is
 	*
@@ -138,7 +138,7 @@
 					return client.query('INSERT INTO public.alphatwo(sessionid, queryid, timestamp, eventtype, eventdata) VALUES ($1, $2, $3, $4, $5)', [sid, pid, utcDate, eventType, eventData])
 
 						.then(res => {
-							console.log("successfully insterted data into alphatwo");
+							console.log("successfully inserted data into alphatwo");
 							client.release();
 						})
 						.catch(e => {
